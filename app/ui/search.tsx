@@ -1,27 +1,25 @@
 "use client";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { type Route } from "next";
 import { useDebouncedCallback } from "use-debounce";
 
-export default function Search({ placeholder }: { placeholder: string }) {
+export default function TableSearch({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
-  const { replace } = useRouter();
   const pathname = usePathname();
+  const { replace } = useRouter();
 
-  const handleSearch = useDebouncedCallback((term) => {
-    console.log(`Searching... ${term}`);
-
+  const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
-
     params.set("page", "1");
-
     if (term) {
       params.set("query", term);
     } else {
       params.delete("query");
     }
-    // replace(`${pathname}?${params.toString()}`);
+
+    replace(`${pathname}?${params.toString()}` as Route);
   }, 300);
 
   return (
