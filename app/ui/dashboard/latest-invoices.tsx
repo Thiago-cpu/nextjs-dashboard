@@ -2,7 +2,15 @@ import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import Image from "next/image";
 import { lusitana } from "@/app/ui/fonts";
-export default async function LatestInvoices() {
+import { type LatestInvoice } from "@/app/lib/definitions";
+
+interface LatestInvoicesProps {
+  latestInvoices: LatestInvoice[];
+}
+
+export default async function LatestInvoices({
+  latestInvoices,
+}: LatestInvoicesProps) {
   return (
     <div className="flex w-full flex-col md:col-span-4 lg:col-span-4">
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
@@ -10,15 +18,15 @@ export default async function LatestInvoices() {
       </h2>
       <div className="flex grow flex-col justify-between rounded-xl bg-gray-50 p-4">
         <div className="bg-white px-6">
-          {/* {latestInvoices.map((invoice, i) => {
+          {latestInvoices.map((invoice, i) => {
             return (
               <div
                 key={invoice.id}
                 className={clsx(
-                  'flex flex-row items-center justify-between py-4',
+                  "flex flex-row items-center justify-between py-4",
                   {
-                    'border-t': i !== 0,
-                  },
+                    "border-t": i !== 0,
+                  }
                 )}
               >
                 <div className="flex items-center">
@@ -27,6 +35,7 @@ export default async function LatestInvoices() {
                     className="mr-4 rounded-full"
                     width={32}
                     height={32}
+                    alt={invoice.name}
                   />
                   <div className="min-w-0">
                     <p className="truncate text-sm font-semibold md:text-base">
@@ -44,7 +53,7 @@ export default async function LatestInvoices() {
                 </p>
               </div>
             );
-          })} */}
+          })}
         </div>
         <div className="flex items-center pb-2 pt-6">
           <ArrowPathIcon className="h-5 w-5 text-gray-500" />
